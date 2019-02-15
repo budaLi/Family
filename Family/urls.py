@@ -17,14 +17,17 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 from app import views
+
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    url('^index/',views.index,name="index"),
-    url('^admin_index/',views.admin_index,name="admin_index"),
-    url('^admin_login/',views.admin_login,name="admin_login"),
-    url('^user_list/',views.user_list,name="user_list"),
-    url('^user_view/',views.user_view,name="user_view"),
-    url('^user_login/',views.user_login,name="user_login"),
-    url('^user_register/',views.user_register,name="user_register"),
-    url("^relation/",views.relation,name="relation"),
+    url('^index/$',views.index,name="index"),
+    url('^ad_index/$',views.ad_index,name="ad_index"),
+    url('^ad_login/$',views.ad_login,name="ad_login"),
+    url('^user_list/$',views.user_list,name="user_list"),
+    url('^user_view/(\d+)/$',views.user_view,name="user_view"),
+    url('^user_login/$',views.user_login,name="user_login"),
+    url('^user_register/$',views.user_register,name="user_register"),
+    url("^relation/$",views.relation,name="relation"),
+    url("^tree/$",views.tree,name="tree"),
+      path('^admin/', admin.site.urls),
 ]

@@ -28,9 +28,11 @@
     <header class="main-header">
         <a href="admin_index.html" class="logo">
             <span class="logo-mini"><img src="/static/base/images/logo.png"
-                                         style="height:40px;width:40px;">电影系统</span>
-            <span class="logo-lg"><img src="/static/base/images/logo.png"
-                                       style="height:40px;width:40px;">微电影管理系统</span>
+                                         style="height:40px;width:40px;"></span>
+           <span class="logo-lg">
+{#            <img src="/static/base/images/logo.png"#}
+{#                                       style="height:40px;width:40px;">#}
+               家庭成员关系图绘制</span>
         </a>
         <nav class="navbar navbar-static-top">
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -105,63 +107,63 @@
                         </li>
                     </ul>
                 </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-tags" aria-hidden="true"></i>
-                        <span>标签管理</span>
-                        <span class="label label-primary pull-right">2</span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="tag_add.html">
-                                <i class="fa fa-circle-o"></i> 添加标签
-                            </a>
-                        </li>
-                        <li>
-                            <a href="tag_list.html">
-                                <i class="fa fa-circle-o"></i> 标签列表
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-file-video-o" aria-hidden="true"></i>
-                        <span>电影管理</span>
-                        <span class="label label-primary pull-right">2</span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="movie_add.html">
-                                <i class="fa fa-circle-o"></i> 添加电影
-                            </a>
-                        </li>
-                        <li>
-                            <a href="movie_list.html">
-                                <i class="fa fa-circle-o"></i> 电影列表
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-film" aria-hidden="true"></i>
-                        <span>预告管理</span>
-                        <span class="label label-primary pull-right">2</span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="preview_add.html">
-                                <i class="fa fa-circle-o"></i> 添加预告
-                            </a>
-                        </li>
-                        <li>
-                            <a href="preview_list.html">
-                                <i class="fa fa-circle-o"></i> 预告列表
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+{#                <li class="treeview">#}
+{#                    <a href="#">#}
+{#                        <i class="fa fa-tags" aria-hidden="true"></i>#}
+{#                        <span>标签管理</span>#}
+{#                        <span class="label label-primary pull-right">2</span>#}
+{#                    </a>#}
+{#                    <ul class="treeview-menu">#}
+{#                        <li>#}
+{#                            <a href="tag_add.html">#}
+{#                                <i class="fa fa-circle-o"></i> 添加标签#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <a href="tag_list.html">#}
+{#                                <i class="fa fa-circle-o"></i> 标签列表#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                </li>#}
+{#                <li class="treeview">#}
+{#                    <a href="#">#}
+{#                        <i class="fa fa-file-video-o" aria-hidden="true"></i>#}
+{#                        <span>电影管理</span>#}
+{#                        <span class="label label-primary pull-right">2</span>#}
+{#                    </a>#}
+{#                    <ul class="treeview-menu">#}
+{#                        <li>#}
+{#                            <a href="movie_add.html">#}
+{#                                <i class="fa fa-circle-o"></i> 添加电影#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <a href="movie_list.html">#}
+{#                                <i class="fa fa-circle-o"></i> 电影列表#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                </li>#}
+{#                <li class="treeview">#}
+{#                    <a href="#">#}
+{#                        <i class="fa fa-film" aria-hidden="true"></i>#}
+{#                        <span>预告管理</span>#}
+{#                        <span class="label label-primary pull-right">2</span>#}
+{#                    </a>#}
+{#                    <ul class="treeview-menu">#}
+{#                        <li>#}
+{#                            <a href="preview_add.html">#}
+{#                                <i class="fa fa-circle-o"></i> 添加预告#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <a href="preview_list.html">#}
+{#                                <i class="fa fa-circle-o"></i> 预告列表#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                </li>#}
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-users" aria-hidden="true"></i>
@@ -170,41 +172,46 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="user_list.html">
+                            <a href="/user_list/">
                                 <i class="fa fa-circle-o"></i> 会员列表
                             </a>
                         </li>
                     </ul>
                 </li>
+{#                <li class="treeview">#}
+{#                    <a href="#">#}
+{#                        <i class="fa fa-comments" aria-hidden="true"></i>#}
+{#                        <span>评论管理</span>#}
+{#                        <span class="label label-primary pull-right">1</span>#}
+{#                    </a>#}
+{#                    <ul class="treeview-menu">#}
+{#                        <li>#}
+{#                            <a href="comment_list.html">#}
+{#                                <i class="fa fa-circle-o"></i> 评论列表#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                </li>#}
+{#                <li class="treeview">#}
+{#                    <a href="#">#}
+{#                        <i class="fa fa-heart" aria-hidden="true"></i>#}
+{#                        <span>收藏管理</span>#}
+{#                        <span class="label label-primary pull-right">1</span>#}
+{#                    </a>#}
+{#                    <ul class="treeview-menu">#}
+{#                        <li>#}
+{#                            <a href="moviecol_list.html">#}
+{#                                <i class="fa fa-circle-o"></i> 收藏列表#}
+
+
+
+
+
+                {#                        </li>#}
+{#                    </ul>#}
+{#                </li>#}
                 <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-comments" aria-hidden="true"></i>
-                        <span>评论管理</span>
-                        <span class="label label-primary pull-right">1</span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="comment_list.html">
-                                <i class="fa fa-circle-o"></i> 评论列表
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-heart" aria-hidden="true"></i>
-                        <span>收藏管理</span>
-                        <span class="label label-primary pull-right">1</span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="moviecol_list.html">
-                                <i class="fa fa-circle-o"></i> 收藏列表
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
+
                     <a href="#">
                         <i class="fa fa-file-text" aria-hidden="true"></i>
                         <span>日志管理</span>
@@ -350,16 +357,19 @@
     </footer>
     <div class="control-sidebar-bg"></div>
 </div>
+
+{% block js %}
+{% endblock %}
 <script src="/static/admin/plugins/jQuery/jQuery-2.2.0.min.js"></script>
 <script src="/static/admin/bootstrap/js/bootstrap.min.js"></script>
 <script src="/static/admin/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="/static/admin/plugins/fastclick/fastclick.js"></script>
 <script src="/static/admin/dist/js/app.min.js"></script>
 <script src="/static/admin/dist/js/demo.js"></script>
-<script src="//cdn.bootcss.com/holder/2.9.4/holder.min.js"></script>
-<script src="../static/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
-<script src="../static/admin/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
-<script src="../static/js/echarts.min.js"></script>
+<script src="/static/js/holder.min.js"></script>
+<script src="/static/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="/static/admin/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
+<script src="/static/js/echarts.min.js"></script>
 <script>
     var myChart = echarts.init(document.getElementById('meminfo'));
     option = {

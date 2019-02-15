@@ -18,16 +18,17 @@ class AdminLoginForm(ModelForm):
         }
 
 #管理员登陆
-def admin_login(request):
+def ad_login(request):
     if request.method=='GET':
         adminform=AdminLoginForm()
         # user=adminform['name']
         # pwd=adminform['pwd']
-        return render(request,'admin/login.html',{'admin_form':adminform})
-    if request.method=='POST':
+        return render(request,'admin_login.html',{'admin_form':adminform})
+    else:
         adminform=AdminLoginForm(request.POST)
         if adminform.is_valid():
-            return render(request,"admin/index.html")
+            return render(request,"admin_index.html")
+        return render(request,'admin_login.html',{'admin_form':adminform})
 
 #查看用户信息
 def user_list(request):
@@ -35,9 +36,16 @@ def user_list(request):
     return render(request, 'user_list.html',{'userlist':userlist})
 
 
+
 #查看该用户详细信息
-def user_view(request):
-    return render(request,'user_view.html')
+def user_view(request,id):
+    userinfo=F_User.objects.filter(pk=id).first()
+    relation_user=F_UserRelation.objects.filter(user_id=id).all()
+    other_lis=[]
+    for one_user in relation_user:
+        other_lis.append(F_User.objects.filter(pk=one_user.other_user).first())
+    print(other_lis)
+    return render(request,'user_view.html',{'userinfo':userinfo,'other_lis':other_lis})
 
 
 
@@ -52,7 +60,8 @@ class UserLoginForm(ModelForm):
 #用户登陆
 def user_login(request):
     return render(request,'')
-def admin_index(request):
+
+def ad_index(request):
     return render(request,'admin_index.html')
 
 
@@ -73,8 +82,8 @@ def index(request):
 
 #此处应该是传入登陆者id 获取其家谱
 def relation(request):
-    user=F_User.objects.filter(id=2).first()
-    rela=F_UserRelation.objects.filter(user_id=2).all()
+    user=F_User.objects.filter(id=1).first()
+    rela=F_UserRelation.objects.filter(user_id=1).all()
     dic={}
     if user and rela:
         node=[{ "name": user.name, "image" : user.image }]
@@ -90,4 +99,5 @@ def relation(request):
             }
     return JsonResponse(dic)
 
-
+def tree(request):
+    return render(request,'tree.html')

@@ -4,7 +4,7 @@
     <div class="content-wrapper">
         <!--内容-->
         <section class="content-header">
-            <h1>会员个人信息</h1>
+            <p><h2>xxxx个人信息</h2><a href="/tree/" class="label label-danger">族谱树</a></p>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 会员管理</a></li>
                 <li class="active">查看会员</li>
@@ -23,19 +23,19 @@
                                 <tbody>
                                 <tr>
                                     <td class="td_bd">编号：</td>
-                                    <td>1</td>
+                                    <td>{{ userinfo.id }}</td>
                                 </tr>
                                 <tr>
                                     <td class="td_bd">昵称：</td>
-                                    <td>拓荒者</td>
+                                    <td>{{ userinfo.nickname }}</td>
                                 </tr>
                                 <tr>
                                     <td class="td_bd">邮箱：</td>
-                                    <td>1780316635@qq.com</td>
+                                    <td>{{ userinfo.email }}</td>
                                 </tr>
                                 <tr>
                                     <td class="td_bd">手机：</td>
-                                    <td>13700632835</td>
+                                    <td>{{ userinfo.phone }}</td>
                                 </tr>
                                 <tr>
                                     <td class="td_bd">头像：</td>
@@ -46,19 +46,19 @@
                                 <tr>
                                     <td class="td_bd">注册时间：</td>
                                     <td>
-                                        2017-01-01 12:00:00
+                                       {{ userinfo.register_time }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="td_bd">唯一标志符：</td>
                                     <td>
-                                        xxxxxx
+                                        {{ userinfo.uniqueid }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="td_bd">个性简介：</td>
                                     <td>
-                                        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                        {{ userinfo.info}}
                                     </td>
                                 </tr>
                                 </tbody>
@@ -68,7 +68,8 @@
                 </div>
             </div>
         </section>
-<iframe   src="/index/" width="55%" height="50%"   frameborder="1/1"  style="position: absolute;left: 800px;top: 100px" name="iframe名称"     scrolling="auto">
+
+<iframe   src="/index/" width="55%" height="50%"   frameborder="1/1"  style="position: absolute;left: 900px;top: 100px" name="iframe名称"     scrolling="auto">
 </iframe>
          <section class="content" id="showcontent">
             <div class="row">
@@ -105,9 +106,9 @@
                                     <th>注册时间</th>
                                     <th>操作事项</th>
                                 </tr>
-                                {% for one in userlist %}
+                                {% for one in other_lis %}
                                 <tr>
-                                    <td>{{ one.id }}</td>
+                                    <td>{{ one.id }}</td>c
                                     <td>{{ one.name }}</td>
                                     <td>{{ one.nickname }}</td>
                                     <td>{{ one.xingshi}}</td>
@@ -121,13 +122,14 @@
                                     <td>{{ one.jiguan }}</td>
                                     <td>{{ one.register_time }}</td>
                                     <td>
-                                        <a class="label label-success" href="#">查看</a>
+                                        <a class="label label-success" href="/user_view/{{ one.id }}">查看</a>
                                         &nbsp;
                                         <a class="label label-info">解冻</a>
                                         &nbsp;
                                         <a class="label label-warning">冻结</a>
                                         &nbsp;
                                         <a class="label label-danger">删除</a>
+
                                     </td>
                                 </tr>
                                 {% endfor %}
