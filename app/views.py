@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.http.response import JsonResponse
+from django.shortcuts import render,redirect
+from django.http.response import JsonResponse,HttpResponse
 from app.models import F_User,F_UserRelation,F_Admin
 from django.forms import ModelForm
 from django.forms import widgets as wid
@@ -27,7 +27,7 @@ def ad_login(request):
     else:
         adminform=AdminLoginForm(request.POST)
         if adminform.is_valid():
-            return render(request,"admin_index.html")
+            return redirect('ad_index')
         return render(request,'admin_login.html',{'admin_form':adminform})
 
 #查看用户信息
@@ -99,5 +99,52 @@ def relation(request):
             }
     return JsonResponse(dic)
 
+#获取从前端传来得个人族谱信息数据
+def makefamilytree(request):
+    data=request.POST['data']
+
+def editperson(request):
+    for one in request.POST:
+        print(one)
+    return HttpResponse(request.POST)
+
+#族谱
 def tree(request):
     return render(request,'tree.html')
+
+#操作日志列表
+def oplog_list(request):
+    return render(request,'oplog_list.html')
+
+#管理员登陆日志
+def adminloginlog_list(request):
+    return render(request,'adminloginlog_list.html')
+
+#会员登陆日志
+def userloginlog_list(request):
+    return render(request,'userloginlog_list.html')
+
+#添加权限
+def auth_add(request):
+    return render(request,'auth_add.html')
+
+#权限列表
+def auth_list(request):
+    return render(request,'auth_list.html')
+
+#添加角色
+def role_add(request):
+    return render(request,'role_add.html')
+
+#角色列表
+def role_list(request):
+    return render(request,'role_list.html')
+
+#添加管理员
+def admin_add(request):
+    return render(request,'admin_add.html')
+
+#管理员列表
+def admin_list(request):
+    return render(request,'admin_list.html')
+

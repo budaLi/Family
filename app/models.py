@@ -28,10 +28,22 @@ class F_User(models.Model):
 class F_UserRelation(models.Model):
 
     user_id=models.ForeignKey('F_User',on_delete=models.CASCADE)
-    other_user=models.IntegerField(_('个人'))
+    # other_user=models.IntegerField(_('个人'))
     relation=models.CharField(_('关系'),max_length=20)
-    story=models.TextField(_('两者之间事件'))
-    add_time=models.DateTimeField(_('增加时间'),default=datetime.datetime.now)
+    story=models.TextField(_('事件'))
+    uniqueid=models.CharField(_('唯一ID'),max_length=200,unique=True)
+    name=models.CharField(_('真实姓名'),max_length=50)
+    nickname=models.CharField(_('昵称'),max_length=50)
+    xingshi=models.CharField(_('姓氏'),max_length=20,default=name) #默认为姓名
+    pwd=models.CharField(_('密码'),max_length=20)
+    sex=models.CharField(_('性别'),choices=(('0',_('男')), ('1',_('女')), ('3',_('不详'))),default=_('男'),max_length=20)
+    birthday=models.DateField(_('出生日期'),max_length=20)
+    phone=models.CharField(_('手机号码'),max_length=20)
+    email=models.CharField(_('邮箱'),max_length=30)
+    image=models.CharField(_('头像'),max_length=200,default="")   #可以设置默认头像
+    jiguan=models.CharField(_('籍贯'),max_length=200)
+    register_time=models.DateTimeField(_('注册时间'),default=datetime.datetime.now)
+    info=models.TextField(_('个人介绍'))
 
     def __str__(self):
         return self.relation
@@ -106,5 +118,25 @@ class F_UserOptionlog(models.Model):
     op_time=models.DateTimeField(_('操作时间'),default=datetime.datetime.now)
     reason=models.CharField(_('事件'),max_length=200)
 
+#角色
+class Role(models.Model):
+    id=models.IntegerField(_('id'),primary_key=True)
+    name=models.CharField(_('角色名称'),max_length=200)
+    auths=models.CharField(_('权限列表'),max_length=200)
+    addtime=models.DateTimeField(_('添加时间'),default=datetime.datetime.now)
+    admins=models.ForeignKey('F_Admin',on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.auths
+
+#权限表
+class Auth(models.Model):
+
+    id=models.IntegerField(_('id'),primary_key=True)
+    name=models.CharField(_('权限名称'),max_length=200)
+    url=models.CharField(_('权限地址'),max_length=200)
+    addtime=models.DateTimeField(_('添加时间'),default=datetime.datetime.now)
+
+    def __str__(self):
+        return self.url
 
