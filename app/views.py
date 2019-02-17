@@ -1,9 +1,30 @@
 from django.shortcuts import render,redirect
 from django.http.response import JsonResponse,HttpResponse
-from app.models import F_User,F_UserRelation,F_Admin
+from app.models import F_User,F_UserRelation,F_Admin,Role,Auth,F_Admin_Oplog,F_UserOptionlog,F_AdminLoginlog,F_UserLoginLog
 from django.forms import ModelForm
 from django.forms import widgets as wid
+from functools import wraps
 
+sessin=[]
+#登陆装饰器
+def admin_login_req(f):
+    @wraps(f)
+    def decorted(*args,**kwargs):
+        if 'admin' not in sessin:
+            return redirect('ad_login')
+    return decorted
+
+#权限装饰器
+def admin_auth(f):
+    @wraps(f)
+    def decorted(*args,**kwargs):
+        admin=F_Admin.objects.filter(name=sessin[0]).first()
+        auths=Auth.objects.all()
+        authslist=','.join(auths.url)
+        if admin:
+            role=Role.objects.filter(pk=admin.role_id).first()
+        return f(*args,**kwargs)
+    return decorted
 
 #管理员登陆表单
 class AdminLoginForm(ModelForm):
@@ -27,6 +48,7 @@ def ad_login(request):
     else:
         adminform=AdminLoginForm(request.POST)
         if adminform.is_valid():
+            sessin.append(request.POST['name'])
             return redirect('ad_index')
         return render(request,'admin_login.html',{'admin_form':adminform})
 
@@ -61,6 +83,7 @@ class UserLoginForm(ModelForm):
 def user_login(request):
     return render(request,'')
 
+# @admin_login_req
 def ad_index(request):
     return render(request,'admin_index.html')
 
@@ -114,15 +137,18 @@ def tree(request):
 
 #操作日志列表
 def oplog_list(request):
-    return render(request,'oplog_list.html')
+    oploglist=F_Admin_Oplog.objects.all()
+    return render(request,'oplog_list.html',{'oploglist':oploglist})
 
 #管理员登陆日志
 def adminloginlog_list(request):
-    return render(request,'adminloginlog_list.html')
+    adminloginloglist=F_AdminLoginlog.objects.all()
+    return render(request,'adminloginlog_list.html',{'adminloginloglist':adminloginloglist})
 
 #会员登陆日志
 def userloginlog_list(request):
-    return render(request,'userloginlog_list.html')
+    userloginloglist=F_UserLoginLog.objects.all()
+    return render(request,'userloginlog_list.html',{'userloginloglist':userloginloglist})
 
 #添加权限
 def auth_add(request):

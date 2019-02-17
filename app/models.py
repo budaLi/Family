@@ -51,14 +51,26 @@ class F_UserRelation(models.Model):
     class Meta:
         verbose_name=_('关系')
 
+
+#会员登陆日志
+class F_UserLoginLog(models.Model):
+    login_id=models.ForeignKey('F_User',on_delete=models.CASCADE)
+    ip=models.CharField(_('登陆IP'),max_length=20)
+    logintime=models.DateTimeField(_('登陆时间'),default=datetime.datetime.now)
+
+
 #管理员信息表
 class F_Admin(models.Model):
 
     uniqueid=models.CharField(_('ID'),max_length=200,unique=True,primary_key=True)
+    role_id=models.ForeignKey('Role',on_delete=models.CASCADE)
     name=models.CharField(_('名称'),max_length=50)
     pwd=models.CharField(_('密码'),max_length=20)
     ip=models.CharField(_('ip'),max_length=100)
     register_time=models.DateTimeField(_('注册时间'),default=datetime.datetime.now)
+    admin_login_log=models.ForeignKey('F_AdminLoginlog',on_delete=models.CASCADE)
+    admin_op_log=models.ForeignKey('F_Admin_Oplog',on_delete=models.CASCADE)
+
 
     def __str__(self):
         return self.name
