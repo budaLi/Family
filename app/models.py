@@ -98,6 +98,7 @@ class F_Admin_Oplog(models.Model):
     op_id=models.ForeignKey('F_Admin',on_delete=models.CASCADE)        #应该设置不是级联删除
     reason=models.CharField(_("操作原因"),max_length=200)
     optime=models.DateTimeField(_('操作时间'),default=datetime.datetime.now)
+    ip=models.CharField(_('ip'),max_length=200)
 
     def __str__(self):
         return self.op_id
@@ -144,7 +145,7 @@ class Role(models.Model):
 #权限表
 class Auth(models.Model):
 
-    id=models.IntegerField(_('id'),primary_key=True)
+    # id=models.IntegerField(_('id'),primary_key=True)
     name=models.CharField(_('权限名称'),max_length=200)
     url=models.CharField(_('权限地址'),max_length=200)
     addtime=models.DateTimeField(_('添加时间'),default=datetime.datetime.now)

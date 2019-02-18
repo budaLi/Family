@@ -150,13 +150,34 @@ def userloginlog_list(request):
     userloginloglist=F_UserLoginLog.objects.all()
     return render(request,'userloginlog_list.html',{'userloginloglist':userloginloglist})
 
+
+
+#用户注册表单
+class AuthForm(ModelForm):
+    class Meta:
+        model = Auth  #对应的Model中的类
+        fields = '__all__'      #字段，如果是__all__,就是表示列出所有的字段
+        exclude = ('id','addtime')          #排除的字段
+        help_texts = None       #帮助提示信息
+
 #添加权限
 def auth_add(request):
+    if request.method == 'GET':
+        authform=AuthForm()
+        return render(request,'auth_add.html',{'authform':authform})
+    if request.method == 'POST':
+        authform=AuthForm(request.POST)
+        if authform.is_valid():
+            authform.save()
+            return redirect('auth_list')
+        else:
+            return render(request,'auth_add.html',{'error':authform.errors})
     return render(request,'auth_add.html')
 
 #权限列表
 def auth_list(request):
-    return render(request,'auth_list.html')
+    authlist=Auth.objects.all()
+    return render(request,'auth_list.html',{'authlist':authlist})
 
 #添加角色
 def role_add(request):
