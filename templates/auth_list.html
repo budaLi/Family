@@ -37,17 +37,19 @@
                                     <th>添加时间</th>
                                     <th>操作事项</th>
                                 </tr>
+                                {% for one in authlist %}
                                 <tr>
-                                    <td>1</td>
-                                    <td>添加标签</td>
-                                    <td>/tag/add/</td>
-                                    <td>2017-06-01</td>
+                                    <td>{{ one.id }}</td>
+                                    <td>{{ one.name }}</td>
+                                    <td>{{ one.url }}</td>
+                                    <td>{{ one.addtime }}</td>
                                     <td>
                                         <a class="label label-success">编辑</a>
                                         &nbsp;
                                         <a class="label label-danger">删除</a>
                                     </td>
                                 </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>

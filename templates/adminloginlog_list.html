@@ -38,12 +38,14 @@
                                     <th>登录时间</th>
                                     <th>登录IP</th>
                                 </tr>
+                                {% for one in adminloginloglist %}
                                 <tr>
-                                    <td>1</td>
-                                    <td>admin</td>
-                                    <td>2017-06-01</td>
-                                    <td>192.168.4.1</td>
+                                    <td>{{ one.id }}</td>
+                                    <td>{{ one.login_id }}</td>
+                                    <td>{{ one.logintime }}</td>
+                                    <td>{{ one.ip }}</td>
                                 </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>

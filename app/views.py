@@ -65,7 +65,7 @@ def user_view(request,id):
     relation_user=F_UserRelation.objects.filter(user_id=id).all()
     other_lis=[]
     for one_user in relation_user:
-        other_lis.append(F_User.objects.filter(pk=one_user.other_user).first())
+        other_lis.append(F_User.objects.filter(pk=one_user.user_id_id).first())
     print(other_lis)
     return render(request,'user_view.html',{'userinfo':userinfo,'other_lis':other_lis})
 
@@ -105,15 +105,15 @@ def index(request):
 
 #此处应该是传入登陆者id 获取其家谱
 def relation(request):
-    user=F_User.objects.filter(id=1).first()
-    rela=F_UserRelation.objects.filter(user_id=1).all()
+    user=F_User.objects.filter(pk=1).first()
+    rela=F_UserRelation.objects.filter(user_id_id=1).all()
     dic={}
     if user and rela:
         node=[{ "name": user.name, "image" : user.image }]
         edges=[]
         for i,one in enumerate(rela):
-            tem=F_User.objects.filter(uniqueid=one.other_user).first()
-            node.append({"name": tem.name, "image" : tem.image })
+            # tem=F_User.objects.filter(uniqueid=one.user_id_id).first()
+            node.append({"name": one.name, "image" : one.image })
             edges.append({ "source": 0 , "target": i+1 , "relation":one.relation })
 
             dic={
@@ -126,14 +126,19 @@ def relation(request):
 def makefamilytree(request):
     data=request.POST['data']
 
-def editperson(request):
-    for one in request.POST:
-        print(one)
-    return HttpResponse(request.POST)
-
 #族谱
 def tree(request):
-    return render(request,'tree.html')
+    if request.method == 'GET':
+        personform=UserRelaForm()
+        return render(request,'tree.html',{'personform':personform})
+    if request.method == 'POST':
+        personform=UserRelaForm(request.POST)
+        if personform.is_valid():
+            personform.save()
+            return redirect('tree',{'sucess':'编辑信息成功'})
+        else:
+            personform=UserRelaForm()
+            return render(request,'tree.html',{'personform':personform,'errors':personform.errors})
 
 #操作日志列表
 def oplog_list(request):
@@ -150,9 +155,7 @@ def userloginlog_list(request):
     userloginloglist=F_UserLoginLog.objects.all()
     return render(request,'userloginlog_list.html',{'userloginloglist':userloginloglist})
 
-
-
-#用户注册表单
+#权限表单
 class AuthForm(ModelForm):
     class Meta:
         model = Auth  #对应的Model中的类
@@ -172,20 +175,51 @@ def auth_add(request):
             return redirect('auth_list')
         else:
             return render(request,'auth_add.html',{'error':authform.errors})
-    return render(request,'auth_add.html')
 
 #权限列表
 def auth_list(request):
     authlist=Auth.objects.all()
     return render(request,'auth_list.html',{'authlist':authlist})
 
+
+#角色表单
+class RoleForm(ModelForm):
+    class Meta:
+        model = Role  #对应的Model中的类
+        fields = '__all__'      #字段，如果是__all__,就是表示列出所有的字段
+        exclude = ('addtime',)          #排除的字段
+        help_texts = None       #帮助提示信息
+        widgets = {
+            'name': wid.Input(attrs={'name':"user" ,'type':"text", 'class':"form-control" ,'placeholder':"请输入账号！"}),
+            'auths': wid.SelectMultiple(attrs={'choices':[(v.id,v.name) for v in Auth.objects.all()]}),
+        }
+
 #添加角色
 def role_add(request):
-    return render(request,'role_add.html')
+    if request.method == 'GET':
+        roleform=RoleForm()
+        print(roleform)
+        rolename=roleform['name']
+        auths=roleform['auths']
+        print(auths)
+        return render(request,'role_add.html',{'rolename':rolename,'auths':auths})
+    if request.method == 'POST':
+        roleform=RoleForm(request.POST)
+        if roleform.is_valid():
+            roleform.save()
+            return redirect('role_list')
+        else:
+            print(request.POST['auths'])
+            roleform=RoleForm()
+            rolename=roleform['name']
+            auths=Auth.objects.all()
+            return render(request,'role_add.html',{'rolename':rolename,'auths':auths,'error':roleform.errors})
+
 
 #角色列表
 def role_list(request):
-    return render(request,'role_list.html')
+    rolelist=Role.objects.all()
+    return render(request,'role_list.html',{'rolelist':rolelist})
 
 #添加管理员
 def admin_add(request):
@@ -195,3 +229,24 @@ def admin_add(request):
 def admin_list(request):
     return render(request,'admin_list.html')
 
+#管理员登陆表单
+class UserRelaForm(ModelForm):
+    class Meta:
+        model = F_UserRelation
+        fields = '__all__'     #字段，如果是__all__,就是表示列出所有的字段
+        exclude = ('user_id','register_time')          #排除的字段
+        help_texts = None       #帮助提示信息
+
+#编辑会员关联的人物信息
+def editperson(request):
+    if request.method == 'GET':
+        personform=UserRelaForm()
+        return render(request,'tree.html',{'personform':personform})
+    if request.method == 'POST':
+        personform=UserRelaForm(request.POST)
+        if personform.is_valid():
+            personform.save()
+            return redirect('tree',{'sucess':'编辑信息成功'})
+        else:
+            personform=UserRelaForm()
+            return render(request,'tree.html',{'personform':personform,'errors':personform.errors})

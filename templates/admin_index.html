@@ -292,9 +292,9 @@
 <script src="/static/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="/static/admin/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
 <script src="/static/js/echarts.min.js"></script>
-
+<script src="/static/js/jquery.hDialog.js"></script>
 {#<script src="/static/js/jquery.min.js"></script>#}
-<script src="/static/js/jquery.hDialog.min.js"></script>
+{##}
 
 <script>
 
@@ -396,6 +396,7 @@
         //console.log(e.pageY);
 		mouse_x = e.pageX + document.documentElement.scrollTop;
         mouse_y = e.pageY + document.documentElement.scrollLeft;
+        console.log('123');
 		for ( var i = 0 ; i < NodeList.length ; i ++ ) {
 			if ( Math.abs(mouse_x - NodeList[i].x -230-(move_x+moved_x) )  <= size && Math.abs(mouse_y - NodeList[i].y -90-(move_y+moved_y) ) <= size ) {
 				NowId = NodeList[i].id ;
@@ -420,6 +421,7 @@
                 console.log('当前选中节点'+NowId);
 				$('#age').val(NodeList[NowId].age);
                  $('.dialog').click();
+                console.log('双击');
 {#               ctx.clearRect ( 0 , 0 , c.width, c.height );#}
                 c = document.getElementById('myCanvas') ;
                 ctx = c.getContext("2d");
