@@ -4,6 +4,8 @@ from app.models import F_User,F_UserRelation,F_Admin,Role,Auth,F_Admin_Oplog,F_U
 from django.forms import ModelForm
 from django.forms import widgets as wid
 from functools import wraps
+from django.core.mail import send_mail,send_mass_mail
+
 
 sessin=[]
 #登陆装饰器
@@ -88,7 +90,7 @@ def ad_index(request):
     return render(request,'admin_index.html')
 
 
-
+# 用户注册
 def user_register(request):
     if request.method=='GET':
         userform=UserLoginForm()
@@ -99,7 +101,7 @@ def user_register(request):
             userform.save()
             return render(request, "admin_login.html", {'userform':userform})
 
-
+# 关系图
 def index(request):
     return render(request, "relationforce.html")
 
@@ -250,3 +252,33 @@ def editperson(request):
         else:
             personform=UserRelaForm()
             return render(request,'tree.html',{'personform':personform,'errors':personform.errors})
+
+# 用户信息首页
+def user_index(request):
+    return render(request,'user_index.html')
+
+
+# 会员关系图
+def user_relations(request):
+    return render(request,'user_relations.html')
+
+
+# 用户族谱
+def user_tree(request):
+    return render(request,'user_tree.html')
+
+# 照片墙
+def imageswall(request):
+    return render(request,'imageswal.html')
+
+# 视频墙
+def vediowall(request):
+    return render(request,'vediowall.html')
+
+# 邮箱发送功能
+def sendemail(request):
+    message1 = ('Subject here', 'this is your dad', '1364826576@qq.com', ['1290680584@qq.com', '1364826576@qq.com'])
+    message2 = ('Another Subject', 'this is your dad', '1364826576@qq.com', ['1290680584@qq.com'])
+    if send_mass_mail((message1, message2), fail_silently=False):
+        return HttpResponse(request,'sucess')
+    return HttpResponse(request,'error')

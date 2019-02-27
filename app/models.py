@@ -17,6 +17,7 @@ class F_User(models.Model):
     jiguan=models.CharField(_('籍贯'),max_length=200)
     register_time=models.DateTimeField(_('注册时间'),default=datetime.datetime.now)
     info=models.TextField(_('个人介绍'))
+    tag=models.CharField(_('注册情况'),choices=(('0',_('已注册')), ('1',_('未注册'))),default=_('未注册'),max_length=20)
 
     def __str__(self):
         return self.name
