@@ -114,16 +114,48 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
+
+
+# EMAIL_HOST_USER = '1364826576@qq.com' # 帐号
+# EMAIL_HOST_PASSWORD = 'btfixrcdeguejfja'  # 密码
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+
+
+#代理以及端口必须有
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 25
+
+#起初是465，但是实际上是不行的。必须用上面的25才能成功
+# EMAIL_PORT = 465
+EMAIL_HOST_USER ='1364826576@qq.com'
+
+#本来填的自己的账号密码，但是不行的.
+# EMAIL_HOST_PASSWORD =os.environ['PASSWORDD']
+
+#账号的密码必须是授权码，忘了的可以在qq邮箱里面设置，把已关闭 |  开启
+
+EMAIL_HOST_PASSWORD = "btfixrcdeguejfja"
+
+# #这里的是前缀，也就是头
+# EMAIL_SUBJECT_PREFIX = u'[Sercheif]'
+
+#后面这个必须为False否则也是发不成功的
+# EMIAL_USE_TLS = True
+EMIAL_USE_TLS = False
+#有这个就会显示是你的邮箱
+EMAIL_FROM ='1364826576@qq.com'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/

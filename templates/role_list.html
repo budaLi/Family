@@ -34,19 +34,23 @@
                                 <tr>
                                     <th>编号</th>
                                     <th>角色名称</th>
+                                    <th>权限列表</th>
                                     <th>添加时间</th>
                                     <th>操作事项</th>
                                 </tr>
+                                {% for one in rolelist %}
                                 <tr>
-                                    <td>1</td>
-                                    <td>xxx</td>
-                                    <td>2017-06-01</td>
+                                    <td>{{ one.id }}</td>
+                                    <td>{{ one.name }}</td>
+                                    <td>{{ one.auths }}</td>
+                                    <td>{{ one.addtime }}</td>
                                     <td>
-                                        <a class="label label-success">编辑</a>
+                                        <a href="/role_edit/{{ one.id }}" class="label label-success">编辑</a>
                                         &nbsp;
-                                        <a class="label label-danger">删除</a>
+                                        <a href="/role_del/{{ one.id }}" class="label label-danger">删除</a>
                                     </td>
                                 </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>

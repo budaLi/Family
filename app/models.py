@@ -18,6 +18,7 @@ class F_User(models.Model):
     register_time=models.DateTimeField(_('注册时间'),default=datetime.datetime.now)
     info=models.TextField(_('个人介绍'))
     tag=models.CharField(_('注册情况'),choices=(('0',_('已注册')), ('1',_('未注册'))),default=_('未注册'),max_length=20)
+    state=models.CharField(_('用户状态'),choices=(('0',_('正常')), ('1',_('冻结'))),default=_('正常'),max_length=20)
 
     def __str__(self):
         return self.name
@@ -67,8 +68,8 @@ class F_Admin(models.Model):
     pwd=models.CharField(_('密码'),max_length=20)
     ip=models.CharField(_('ip'),max_length=100)
     register_time=models.DateTimeField(_('注册时间'),default=datetime.datetime.now)
-    admin_login_log=models.ForeignKey('F_AdminLoginlog',on_delete=models.CASCADE)
-    admin_op_log=models.ForeignKey('F_Admin_Oplog',on_delete=models.CASCADE)
+    # admin_login_log=models.ForeignKey('F_AdminLoginlog',on_delete=models.CASCADE)
+    # admin_op_log=models.ForeignKey('F_Admin_Oplog',on_delete=models.CASCADE)
 
 
     def __str__(self):
@@ -130,16 +131,7 @@ class F_UserOptionlog(models.Model):
     op_time=models.DateTimeField(_('操作时间'),default=datetime.datetime.now)
     reason=models.CharField(_('事件'),max_length=200)
 
-#角色
-class Role(models.Model):
 
-    name=models.CharField(_('角色名称'),max_length=200)
-    auths=models.CharField(_('权限列表'),max_length=200)
-    addtime=models.DateTimeField(_('添加时间'),default=datetime.datetime.now)
-
-
-    def __str__(self):
-        return self.name
 
 #权限表
 class Auth(models.Model):
@@ -152,3 +144,17 @@ class Auth(models.Model):
     def __str__(self):
         return self.url
 
+#角色
+class Role(models.Model):
+
+    name=models.CharField(_('角色名称'),max_length=200)
+    authlist=Auth.objects.all()
+    tem=[]
+    for i,one in enumerate(authlist):
+        tem.append((i,one.name))
+    auths=models.CharField(_('权限列表'),default=tem,max_length=200)
+    addtime=models.DateTimeField(_('添加时间'),default=datetime.datetime.now)
+
+
+    def __str__(self):
+        return self.name

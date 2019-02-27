@@ -1,0 +1,103 @@
+
+{% extends 'user_index.html' %}
+
+{% block content %}
+{#     <link rel="stylesheet" type="text/css" href="/static/base/css/common.css">#}
+     <div class="content-wrapper">
+       .
+<table>
+	<tr>
+		<td>
+			<div width="1230" height="880" >
+
+
+				<canvas id="myCanvas" width="1230" height="880" style="border:3px solid blue;"></canvas>
+			</div >
+		</td>
+		<td>
+                            <div class="box" style="display: none"  >
+                <div class="demo6" >
+                    <button  style="display: none;" class="dialog"> 编辑xxx的个人信息 ——</button>
+                </div>
+                    </div>
+			<div width="1000" height="700" >
+
+{#				<button id="edit">编辑资料</button><br><br>#}
+				<button id="changedead">更改生命</button><br><br>
+				<button id="changeme">設為自己</button><br><br>
+				<button id="changesex">更改性別</button><br><br>
+				<button id="insertchild_front">插入小孩(前)</button><br><br>
+				<button id="insertchild_back">插入小孩(後)</button><br><br>
+				<button id="changetogether">更改居住</button><br><br>
+				<input id="age"><br><br>
+				<button id="reset">重置</button><br><br>
+
+				<button id="insertparent">插入家長</button><br><br>
+				<button id="insertcouple">插入伴侶</button><br><br>
+				<button id="save">保存族谱</button><br><br>
+{#				<button id="removenode">移除節點</button>#}
+			</div>
+		</td>
+	</tr>
+</table>
+
+    </div>
+<div id="HBox">
+			<form id="form" method="POST" onsubmit="return false">
+                {% csrf_token %}
+                {{ personform.as_p }}
+{#				<ul class="list">#}
+{#                    <br>#}
+{#                    <br>#}
+{#					<li>#}
+{#						<strong>姓 名</strong>#}
+{#						<div class="fl"><input type="text" name="nickname" value="" class="ipt nickname" /></div>#}
+{#					</li>#}
+{#					<li>#}
+{#						<strong>手 机 </strong>#}
+{#						<div class="fl"><input type="text" name="phone" value="" class="ipt phone" /></div>#}
+{#					</li>#}
+{#					<li>#}
+{#						<strong>邮 箱 </strong>#}
+{#						<div class="fl"><input type="text" name="email" value="" class="ipt email" /></div>#}
+{#					</li>#}
+{#					<li>#}
+{#						<strong>性 别 </strong>#}
+{#						<div class="fl">#}
+{#							<label class="mr10"><input type="radio" name="sex" value="1"/>男</label>#}
+{#							<label class="mr10"><input type="radio" name="sex" value="2"/>女</label>#}
+{#							<label><input type="radio" name="sex" value="3"/>保密</label>#}
+{#						</div>#}
+{#					</li>#}
+{#                    					<li>#}
+{#						<strong>出生 日期 </strong>#}
+{#						<div class="fl">#}
+{#							<label class="mr10"><input type="radio" name="sex" value="1"/>男</label>#}
+{#							<label class="mr10"><input type="radio" name="sex" value="2"/>女</label>#}
+{#							<label><input type="radio" name="sex" value="3"/>保密</label>#}
+{#						</div>#}
+{#					</li>#}
+{#					<li>#}
+{#						<strong>爱 好 <font color="#ff0000">&nbsp;</font></strong>#}
+{#						<div class="fl">#}
+{#							<label class="mr10"><input type="checkbox" name="like" value="男" />男</label>#}
+{#							<label class="mr10"><input type="checkbox" name="like" value="女"/>女</label>#}
+{#							<label><input type="checkbox" name="like" value="都喜欢"/>都喜欢</label>#}
+{#						</div>#}
+{#					</li>#}
+{#					<li><input type="submit" value="确认提交" class="submitBtn" onclick=""/></li>#}
+{#				</ul>#}
+			</form>
+
+
+</div>
+{#<script src="/static/js/jquery.min.js"></script>#}
+{#<script src="/static/js/jquery.hDialog.min.js"></script>#}
+    {% endblock %}
+
+
+
+{#{% block js %}#}
+{#<script src="/static/js/jquery.hDialog.min.js"></script>#}
+{#<script src="/static/js/jquery.hDialog.js"></script>#}
+{#{% endblock %}#}

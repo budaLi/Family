@@ -7,7 +7,7 @@ from functools import wraps
 from django.core.mail import send_mail,send_mass_mail
 
 
-sessin=[]
+sessin={'admin':'libuda'}
 #登陆装饰器
 def admin_login_req(f):
     @wraps(f)
@@ -20,11 +20,18 @@ def admin_login_req(f):
 def admin_auth(f):
     @wraps(f)
     def decorted(*args,**kwargs):
+        request=args[0]  #反向解析url
+        authslist=[]
+        url=request.path #当前url  /path/
         admin=F_Admin.objects.filter(name=sessin[0]).first()
         auths=Auth.objects.all()
-        authslist=','.join(auths.url)
+        for one in auths:
+            authslist.append(one.url)   #权限列表中  /xxx/,/xxx/这种形式
         if admin:
-            role=Role.objects.filter(pk=admin.role_id).first()
+            role=Role.objects.filter(pk=admin.role_id.id).first()
+            tem=role.auths.split(',')
+            if url not in tem:
+                return render(request,'admin404.html')
         return f(*args,**kwargs)
     return decorted
 
@@ -35,10 +42,10 @@ class AdminLoginForm(ModelForm):
         fields = ('name','pwd')      #字段，如果是__all__,就是表示列出所有的字段
         #exclude = ('uniqueid','register_time')          #排除的字段
         help_texts = None       #帮助提示信息
-        widgets = {
-            # 'username': wid.Input(attrs={'name':"user" ,'type':"text", 'class':"form-control" ,'placeholder':"请输入账号！"}),
-            'pwd': wid.PasswordInput(attrs={}),
-        }
+        # widgets = {
+        #     # 'username': wid.Input(attrs={'name':"user" ,'type':"text", 'class':"form-control" ,'placeholder':"请输入账号！"}),
+        #     'pwd': wid.PasswordInput(attrs={}),
+        # }
 
 #管理员登陆
 def ad_login(request):
@@ -50,11 +57,19 @@ def ad_login(request):
     else:
         adminform=AdminLoginForm(request.POST)
         if adminform.is_valid():
-            sessin.append(request.POST['name'])
+            sessin['admin']=(request.POST['name'])
             return redirect('ad_index')
         return render(request,'admin_login.html',{'admin_form':adminform})
 
+
+#管理员退出登陆
+def ad_logout(request):
+    sessin.clear()
+    return redirect('ad_login')
+
+
 #查看用户信息
+# @admin_auth
 def user_list(request):
     userlist=F_User.objects.all()
     return render(request, 'user_list.html',{'userlist':userlist})
@@ -85,9 +100,12 @@ class UserLoginForm(ModelForm):
 def user_login(request):
     return render(request,'')
 
+# @admin_auth
 # @admin_login_req
+# 管理员主页
 def ad_index(request):
-    return render(request,'admin_index.html')
+    print(sessin['admin'])
+    return render(request,'admin_index.html',{'admin':sessin['admin']})
 
 
 # 用户注册
@@ -183,6 +201,25 @@ def auth_list(request):
     authlist=Auth.objects.all()
     return render(request,'auth_list.html',{'authlist':authlist})
 
+# 编辑权限
+def auth_edit(request,id):
+    auth=Auth.objects.filter(pk=id).first()
+    if request.method == 'GET':
+        authform=AuthForm(instance=auth)
+        return render(request,'auth_edit.html',{'authform':authform})
+    if request.method == 'POST':
+        authform=AuthForm(request.POST)
+        if authform.is_valid():
+            authform.save()
+            return redirect('auth_list')
+        else:
+            return render(request,'auth_edit.html',{'authform':authform,'errors':authform.errors})
+
+# 删除权限
+def auth_del(request,id):
+    auth=Auth.objects.filter(pk=id).first()
+    auth.delete()
+    return redirect('auth_list')
 
 #角色表单
 class RoleForm(ModelForm):
@@ -193,17 +230,19 @@ class RoleForm(ModelForm):
         help_texts = None       #帮助提示信息
         widgets = {
             'name': wid.Input(attrs={'name':"user" ,'type':"text", 'class':"form-control" ,'placeholder':"请输入账号！"}),
-            'auths': wid.SelectMultiple(attrs={'choices':[(v.id,v.name) for v in Auth.objects.all()]}),
+            'auths': wid.Input(attrs={'type':"checkbox",'choices':((i,v.name) for i,v in enumerate(Auth.objects.all()))}),
         }
 
 #添加角色
 def role_add(request):
     if request.method == 'GET':
         roleform=RoleForm()
-        print(roleform)
+        # print(roleform)
         rolename=roleform['name']
         auths=roleform['auths']
-        print(auths)
+        for o in Auth.objects.all():
+            print(o.name)
+        # print(auths)
         return render(request,'role_add.html',{'rolename':rolename,'auths':auths})
     if request.method == 'POST':
         roleform=RoleForm(request.POST)
@@ -223,15 +262,57 @@ def role_list(request):
     rolelist=Role.objects.all()
     return render(request,'role_list.html',{'rolelist':rolelist})
 
+# 编辑角色
+def role_edit(request,id):
+    role=Role.objects.filter(pk=id).first()
+    if request.method == 'GET':
+        roleform=RoleForm(instance=role)
+        return render(request,'role_edit.html',{'roleform':roleform})
+    if request.method == 'POST':
+        roleform=RoleForm(request.POST)
+        if roleform.is_valid():
+            roleform.save()
+            return redirect('role_list')
+        else:
+            return render(request,'role_edit.html',{'roleform':roleform,'errors':roleform.errors})
+
+# 删除角色
+def role_del(request,id):
+    role=Role.objects.filter(pk=id).first()
+    role.delete()
+    return redirect('role_list')
+
+class AdminaddForm(ModelForm):
+    class Meta:
+        model = F_Admin  #对应的Model中的类
+        fields = ('name','pwd','role_id')
+        #exclude = ('uniqueid','register_time')
+        help_texts = None       #帮助提示信息
+
 #添加管理员
 def admin_add(request):
     return render(request,'admin_add.html')
+    # if request.method == 'GET':
+    #     adminform=AdminaddForm()
+    #     return render(request,'auth_add.html',{'adminform':adminform})
+    # if request.method == 'POST':
+    #     adminform=AdminaddForm(request.POST)
+    #     if adminform.is_valid():
+    #         adminform.save()
+    #         return redirect('admin_list')
+    #     else:
+    #         return render(request,'admin_add.html',{'error':adminform.errors})
+
+# 管理员修改密码
+def admin_cgpwd(request,id):
+    return render(request, 'ad_changepwd.html')
 
 #管理员列表
 def admin_list(request):
-    return render(request,'admin_list.html')
+    adminlist=F_Admin.objects.all()
+    return render(request,'admin_list.html',{'adminlist':adminlist})
 
-#管理员登陆表单
+#用户关系表单
 class UserRelaForm(ModelForm):
     class Meta:
         model = F_UserRelation

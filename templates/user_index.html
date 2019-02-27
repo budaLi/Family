@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/static/admin/dist/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="/static/base/css/animate.css">
     <link rel="stylesheet" type="text/css" href="/static/admin/plugins/datepicker/datepicker3.css">
-
+     <link rel="stylesheet" type="text/css" href="/static/base/css/style.css"/>
     <style>
         *{
             font-family:"Microsoft YaHei";
@@ -29,11 +29,11 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <header class="main-header">
-        <a href="#" class="logo">
+        <a href="index.html" class="logo">
             <span class="logo-mini"><img src="/static/base/images/logo.png"
-                                         style="height:40px;width:40px;">家庭成员关系图绘制系统</span>
+                                         style="height:40px;width:40px;">xxxxxxxxxx</span>
             <span class="logo-lg"><img src="/static/base/images/logo.png"
-                                       style="height:40px;width:40px;">关系图绘制系统</span>
+                                       style="height:40px;width:40px;">xxxxxx</span>
         </a>
         <nav class="navbar navbar-static-top">
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -43,25 +43,25 @@
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img  src="/static/admin/dist/img/user2-160x160.jpg"
+                            <img src="/static/admin/dist/img/user2-160x160.jpg"
                                  class="user-image" alt="User Image">
-                            <span class="hidden-xs">{{ admin }}</span>
+                            <span class="hidden-xs">xxx</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
                                 <img src="/static/admin/dist/img/user2-160x160.jpg"
                                      class="img-circle" alt="User Image">
                                 <p>
-                                    {{ admin }}
+                                    xxx
                                     <small>2019-01-18</small>
                                 </p>
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="/admin_cgpwd/{{ admin }}" class="btn btn-default btn-flat">修改密码</a>
+                                    <a href="pwd.html" class="btn btn-default btn-flat">修改密码</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="/ad_logout/" class="btn btn-default btn-flat">退出系统</a>
+                                    <a href="login.html" class="btn btn-default btn-flat">退出系统</a>
                                 </div>
                             </li>
                         </ul>
@@ -80,7 +80,7 @@
                          alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>{{ admin }}</p>
+                    <p>用户</p>
                     <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
                 </div>
             </div>
@@ -104,8 +104,8 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="index.html">
-                                <i class="fa fa-circle-o"></i> 控制面板
+                            <a href="/#/">
+                                <i class="fa fa-circle-o"></i> 人流量统计
                             </a>
                         </li>
                     </ul>
@@ -113,113 +113,212 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-tags" aria-hidden="true"></i>
-                        <span>会员管理</span>
+                        <span>个人信息</span>
                         <span class="label label-primary pull-right">1</span>
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="/user_list/">
-                                <i class="fa fa-circle-o"></i> 会员列表
+                            <a href="/userview/">
+                                <i class="fa fa-circle-o"></i> 详细信息
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/user_relations/">
+                                <i class="fa fa-circle-o"></i> 关系图
+                            </a>
+                        </li>
+                                                <li>
+                            <a href="/user_tree/">
+                                <i class="fa fa-circle-o"></i> 家谱树
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-file-text" aria-hidden="true"></i>
+                        <span>多媒体信息</span>
+                        <span class="label label-primary pull-right">2</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="/imageswall/">
+                                <i class="fa fa-circle-o"></i>个人照片墙
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/vediowall/">
+                                <i class="fa fa-circle-o"></i> 视频
                             </a>
                         </li>
 {#                        <li>#}
-{#                            <a href="/tshiplist/">#}
-{#                                <i class="fa fa-circle-o"></i> xx#}
+{#                            <a href="/userloginlog_list/">#}
+{#                                <i class="fa fa-circle-o"></i> 会员登录日志列表#}
 {#                            </a>#}
 {#                        </li>#}
                     </ul>
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-file-text" aria-hidden="true"></i>
-                        <span>日志管理</span>
-                        <span class="label label-primary pull-right">3</span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="/oplog_list/">
-                                <i class="fa fa-circle-o"></i> 操作日志列表
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/adminloginlog_list/">
-                                <i class="fa fa-circle-o"></i> 管理员登录日志列表
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/userloginlog_list/">
-                                <i class="fa fa-circle-o"></i> 会员登录日志列表
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
                         <i class="fa fa-lock" aria-hidden="true"></i>
-                        <span>权限管理</span>
-                        <span class="label label-primary pull-right">2</span>
+                        <span>亲戚称谓计算</span>
+                        <span class="label label-primary pull-right">1</span>
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="/auth_add/">
-                                <i class="fa fa-circle-o"></i> 添加权限
+                            <a href="#">
+                                <i class="fa fa-circle-o"></i> 亲戚称谓计算
                             </a>
                         </li>
-                        <li>
-                            <a href="/auth_list/">
-                                <i class="fa fa-circle-o"></i> 权限列表
-                            </a>
-                        </li>
+{#                        <li>#}
+{#                            <a href="/auth_list/">#}
+{#                                <i class="fa fa-circle-o"></i> 权限列表#}
+{#                            </a>#}
+{#                        </li>#}
                     </ul>
                 </li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-user-secret" aria-hidden="true"></i>
-                        <span>角色管理</span>
+                        <span>日志管理</span>
                         <span class="label label-primary pull-right">2</span>
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="/role_add/">
-                                <i class="fa fa-circle-o"></i> 添加角色
+                            <a href="#">
+                                <i class="fa fa-circle-o"></i>登陆日志
                             </a>
                         </li>
                         <li>
-                            <a href="/role_list/">
-                                <i class="fa fa-circle-o"></i> 角色列表
+                            <a href="#">
+                                <i class="fa fa-circle-o"></i> 操作日志
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-user-circle" aria-hidden="true"></i>
-                        <span>管理员管理</span>
-                        <span class="label label-primary pull-right">2</span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="/admin_add/">
-                                <i class="fa fa-circle-o"></i> 添加管理员
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/admin_list/">
-                                <i class="fa fa-circle-o"></i> 管理员列表
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+{#                <li class="treeview">#}
+{#                    <a href="#">#}
+{#                        <i class="fa fa-user-circle" aria-hidden="true"></i>#}
+{#                        <span>管理员管理</span>#}
+{#                        <span class="label label-primary pull-right">2</span>#}
+{#                    </a>#}
+{#                    <ul class="treeview-menu">#}
+{#                        <li>#}
+{#                            <a href="/admin_add/">#}
+{#                                <i class="fa fa-circle-o"></i> 添加管理员#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <a href="/admin_list/">#}
+{#                                <i class="fa fa-circle-o"></i> 管理员列表#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                </li>#}
 
             </ul>
         </section>
     </aside>
 
 
-    {% block content %}
-<div class="content-wrapper">
-        </div>
-    {% endblock %}
+
+{% block content %}
+        <!--内容-->
+     <div class="content-wrapper">
+        <section class="content-header">
+            <h1>家庭成员关系图绘制系统</h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> 会员管理</a></li>
+                <li class="active">会员列表</li>
+            </ol>
+        </section>
+        <section class="content" id="showcontent">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h3 class="box-title">会员列表</h3>
+                            <div class="box-tools">
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="text" name="table_search" class="form-control pull-right"
+                                           placeholder="请输入关键字...">
+
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover">
+                                <tbody>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>真实姓名</th>
+                                    <th>昵称</th>
+                                    <th>姓氏</th>
+                                    <th>性别</th>
+                                    <th>出生日期</th>
+                                    <th>手机号码</th>
+                                    <th>邮箱</th>
+                                    <th>头像</th>
+                                    <th>籍贯</th>
+                                    <th>注册时间</th>
+                                    <th>操作事项</th>
+                                </tr>
+                                {% for one in userlist %}
+                                <tr>
+                                    <td>{{ one.id }}</td>
+                                    <td>{{ one.name }}</td>
+                                    <td>{{ one.nickname }}</td>
+                                    <td>{{ one.xingshi}}</td>
+                                    <td>{{ one.sex }}</td>
+                                    <td>{{ one.birthday }}</td>
+                                    <td>{{ one.phone }}</td>
+                                    <td>{{ one.email }}</td>
+                                    <td>
+                                        {% if one.image %}
+                                        <img src="{{ one.image }}" class="img-responsive center-block" alt="">
+                                        {% else %}
+                                            <img src="#" class="img-responsive center-block" alt="">
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ one.jiguan }}</td>
+                                    <td>{{ one.register_time }}</td>
+                                    <td>
+                                        <a class="label label-success" href="/user_view/{{ one.id }}">查看</a>
+                                        &nbsp;
+                                        <a class="label label-info">解冻</a>
+                                        &nbsp;
+                                        <a class="label label-warning">冻结</a>
+                                        &nbsp;
+                                        <a class="label label-danger">删除</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer clearfix">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="#">首页</a></li>
+                                <li><a href="#">上一页</a></li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">下一页</a></li>
+                                <li><a href="#">尾页</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--内容-->
+    </div>
+{% endblock %}
+
 
 
 
@@ -299,7 +398,6 @@
 
 <script>
 
-
 	function Node(id){
 		this.together = false ;
 		this.id = id ;
@@ -320,6 +418,8 @@
 <script>
 	var c = document.getElementById('myCanvas') ;
 	var ctx = c.getContext("2d");
+    var img=new Image();
+    img.src='';
 	var dragspeed = 0.01 ;
 	var mouse_press = false ;
 	var press_mouse_x ;
@@ -525,7 +625,7 @@
 				Paint();
 			}
 		}
-	};
+	}
 
 
 	var InsertCouple = function(){
@@ -542,7 +642,7 @@
 				Paint();
 			}
 		}
-	};
+	}
 
 	var InsertChildBack = function(){
 		if ( DetectNull() === true){
@@ -563,7 +663,7 @@
 				Paint();
 			}
 		}
-	};
+	}
 
 	var InserChildFront = function(){
 		if ( DetectNull() === true){
@@ -584,7 +684,7 @@
 				Paint();
 			}
 		}
-	};
+	}
 
 	var DetectNull = function(){
 		if (NowId === null){
@@ -592,7 +692,7 @@
 			return false ;
 		}
 		return true ;
-	};
+	}
 
 	var ResetParentSite = function(index){
 		if ( ( NodeList[index].father === null &&  NodeList[index].mother === null ) || PaintedNode[index] === true ){
@@ -734,7 +834,7 @@
 				LowestRight = LowestList[i].x ;
 			}
 		}
-	};
+	}
 
 	var DetectAllCover = function(){
 		DetectLevel(0);
@@ -794,13 +894,11 @@
                     ctx.strokeStyle = "red" ;
 			}
 			if ( NodeList[i].dead == false ){
-
 				if ( NodeList[i].sex === 0 ){
 					ctx.beginPath();
 					ctx.arc(NodeList[i].x+move_x+moved_x,NodeList[i].y+move_y+moved_y,size,0,Math.PI*2);
 					ctx.stroke() ;
 					if ( NodeList[i].me === true ){
-
 						ctx.beginPath();
 						ctx.moveTo( NodeList[i].x+size-(size-Math.sqrt(size*size/2))+move_x+moved_x,  NodeList[i].y-size+(size-Math.sqrt(size*size/2)) +move_y+moved_y) ;
 						ctx.lineTo( NodeList[i].x-size/2+1-(size-Math.sqrt(size*size/2))+move_x+moved_x,  NodeList[i].y-1 +size/2+(size-Math.sqrt(size*size/2))+move_y+moved_y) ;
@@ -863,7 +961,7 @@
 			}
 			if ( NodeList[i].age !== null ){
 				ctx.font = "20px Arial";
-				ctx.fillText(NodeList[i].age, NodeList[i].x-size+move_x+moved_x-10, NodeList[i].y+size+move_y+moved_y+40);
+				ctx.fillText(NodeList[i].age, NodeList[i].x-size+move_x+moved_x+10, NodeList[i].y+size+move_y+moved_y+40);
 			}
 		}
 		ctx.strokeStyle = "black" ;
@@ -891,7 +989,7 @@
 		else {
             return false;
         }
-	};
+	}
 
 	var FixParent = function(index){
 		if ( NodeList[index].father === null || NodeList[NodeList[index].father.id].children.length === 0 )
@@ -987,7 +1085,6 @@
 	};
 
 	var Init = function(){
-        console.log('初始化');
 		NodeList = new Array();
 		HighestList = new Array();
 		var Me = new Node(0);
@@ -996,7 +1093,6 @@
 		Me.me = false ;
 		NodeList.push(Me) ;
 		NowId = 0 ;
-
 {#		InsertCouple();#}
 {#		InsertChildBack();#}
 {#		InsertParent();#}
@@ -1007,17 +1103,6 @@
 {#		HighestList[1] = 3 ;#}
 {#		HighestLeft = HighestRight = SecondLeft = SecondRight = LowestLeft = LowestRight = null ;#}
 		Paint();
-                console.log('画图');
-        var image=new Image();
-        image.src='/static/images/1.png';
-        console.log(image);
-
-        image.style.top=500+'px';
-        image.style.left=500+'px';
-        image.style.borderRadius='70%';
-        console.log(image);
-                        ctx.drawImage(image,500,500);
-                        console.log('画图');
 	};
 
 	window.onload = function(){

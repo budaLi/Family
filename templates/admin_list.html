@@ -34,24 +34,19 @@
                                 <tr>
                                     <th>编号</th>
                                     <th>管理员名称</th>
-                                    <th>管理员类型</th>
                                     <th>管理员角色</th>
+                                    <th>管理员密码</th>
                                     <th>添加时间</th>
                                 </tr>
+                                {% for one in adminlist %}
                                 <tr>
-                                    <td>1</td>
-                                    <td>jinlong</td>
-                                    <td>普通管理员</td>
-                                    <td>系统管理员</td>
-                                    <td>2017-06-01</td>
+                                    <td>{{ one.uniqueid }}</td>
+                                    <td>{{ one.name }}</td>
+                                    <td>{{ one.role_id }}</td>
+                                    <td>{{ one.pwd }}</td>
+                                    <td>{{ one.register_time }}</td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>jianbo</td>
-                                    <td>超级管理员</td>
-                                    <td>系统管理员</td>
-                                    <td>2017-06-01</td>
-                                </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>
