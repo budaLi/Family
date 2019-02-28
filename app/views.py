@@ -7,7 +7,7 @@ from functools import wraps
 from django.core.mail import send_mail,send_mass_mail
 
 
-sessin={'admin':'libuda'}
+sessin={'admin':'admin'}
 #登陆装饰器
 def admin_login_req(f):
     @wraps(f)
@@ -48,7 +48,7 @@ class AdminLoginForm(ModelForm):
         # }
 
 #管理员登陆
-def ad_login(request):
+def admin_login(request):
     if request.method=='GET':
         adminform=AdminLoginForm()
         # user=adminform['name']
@@ -57,13 +57,17 @@ def ad_login(request):
     else:
         adminform=AdminLoginForm(request.POST)
         if adminform.is_valid():
-            sessin['admin']=(request.POST['name'])
-            return redirect('ad_index')
+            admin=F_Admin.objects.filter(name=request.POST['name']).first()
+            if admin and admin.pwd==request.POST['pwd']:
+                sessin['admin']=request.POST['name']
+                return redirect('ad_index')
+            else:
+                return render(request,'admin_login.html',{'admin_form':adminform})
         return render(request,'admin_login.html',{'admin_form':adminform})
 
 
 #管理员退出登陆
-def ad_logout(request):
+def admin_logout(request):
     sessin.clear()
     return redirect('ad_login')
 
@@ -104,8 +108,8 @@ def user_login(request):
 # @admin_login_req
 # 管理员主页
 def ad_index(request):
-    print(sessin['admin'])
-    return render(request,'admin_index.html',{'admin':sessin['admin']})
+    admin=F_Admin.objects.filter(name=sessin['admin']).first()
+    return render(request,'admin_index.html',{'admin':sessin['admin'],'id':admin.uniqueid})
 
 
 # 用户注册
@@ -208,7 +212,7 @@ def auth_edit(request,id):
         authform=AuthForm(instance=auth)
         return render(request,'auth_edit.html',{'authform':authform})
     if request.method == 'POST':
-        authform=AuthForm(request.POST)
+        authform=AuthForm(request.POST,instance=auth)
         if authform.is_valid():
             authform.save()
             return redirect('auth_list')
@@ -226,31 +230,29 @@ class RoleForm(ModelForm):
     class Meta:
         model = Role  #对应的Model中的类
         fields = '__all__'      #字段，如果是__all__,就是表示列出所有的字段
-        exclude = ('addtime',)          #排除的字段
+        exclude = ('addtime','auths')          #排除的字段
         help_texts = None       #帮助提示信息
         widgets = {
-            'name': wid.Input(attrs={'name':"user" ,'type':"text", 'class':"form-control" ,'placeholder':"请输入账号！"}),
-            'auths': wid.Input(attrs={'type':"checkbox",'choices':((i,v.name) for i,v in enumerate(Auth.objects.all()))}),
+            'name': wid.Input(attrs={'name':"user" ,'type':"text", 'class':"form-control" ,'placeholder':"请输入角色名称！"}),
+            # 'auths': wid.Input(attrs={'type':"checkbox",'choices':((i,v.name) for i,v in enumerate(Auth.objects.all()))}),
         }
 
 #添加角色
 def role_add(request):
     if request.method == 'GET':
         roleform=RoleForm()
-        # print(roleform)
         rolename=roleform['name']
-        auths=roleform['auths']
-        for o in Auth.objects.all():
-            print(o.name)
-        # print(auths)
+        auths=Auth.objects.all()
         return render(request,'role_add.html',{'rolename':rolename,'auths':auths})
     if request.method == 'POST':
         roleform=RoleForm(request.POST)
         if roleform.is_valid():
+            instance=roleform.save(commit=False)
+            tem=request.POST.getlist('input_url')
+            instance.auths=','.join(tem)
             roleform.save()
             return redirect('role_list')
         else:
-            print(request.POST['auths'])
             roleform=RoleForm()
             rolename=roleform['name']
             auths=Auth.objects.all()
@@ -265,12 +267,29 @@ def role_list(request):
 # 编辑角色
 def role_edit(request,id):
     role=Role.objects.filter(pk=id).first()
+
     if request.method == 'GET':
         roleform=RoleForm(instance=role)
-        return render(request,'role_edit.html',{'roleform':roleform})
+        rolename=roleform['name']
+        authlist=[]   #已有权限
+        allauths=[]
+        tem=role.auths.split(',')
+        ss=Auth.objects.all()
+        for one in ss:
+            allauths.append(one)
+        for one in tem:   #已有权限
+            authlist.append(Auth.objects.filter(url=one).first())
+        for one in allauths:
+            if one in authlist:
+                allauths.remove(one)
+        return render(request,'role_edit.html',{'rolename':rolename,'auths':authlist,'emptyauth':allauths})
     if request.method == 'POST':
-        roleform=RoleForm(request.POST)
+        roleform=RoleForm(request.POST,instance=role)
+        print(roleform)
         if roleform.is_valid():
+            instance=roleform.save(commit=False)
+            tem=request.POST.getlist('input_url')
+            instance.auths=','.join(tem)
             roleform.save()
             return redirect('role_list')
         else:
@@ -305,6 +324,16 @@ def admin_add(request):
 
 # 管理员修改密码
 def admin_cgpwd(request,id):
+    if request.method == 'GET':
+        return render(request,'ad_changepwd.html')
+
+    if not sessin['admin']:
+        return redirect('admin_login')
+    admin=F_Admin.objects.filter(name=sessin['admin']).first()
+    if request.POST['input_pwd'] == admin.pwd:
+        admin.pwd=request.POST['input_newpwd']
+        admin.save()
+        return redirect('admin_list')
     return render(request, 'ad_changepwd.html')
 
 #管理员列表
@@ -357,9 +386,11 @@ def vediowall(request):
     return render(request,'vediowall.html')
 
 # 邮箱发送功能
-def sendemail(request):
-    message1 = ('Subject here', 'this is your dad', '1364826576@qq.com', ['1290680584@qq.com', '1364826576@qq.com'])
-    message2 = ('Another Subject', 'this is your dad', '1364826576@qq.com', ['1290680584@qq.com'])
-    if send_mass_mail((message1, message2), fail_silently=False):
-        return HttpResponse(request,'sucess')
-    return HttpResponse(request,'error')
+def sendemail(request,from_email,to_email):
+    from Family.settings import DEFAULT_FROM_EMAIL
+    # to_email="1364826576@qq.com"
+    email_title = "您的家人 %s 邀请注册"%(from_email)
+    email_body = "请点击 http://127.0.0.1:8000/register/  注册  如果认为被骚扰请无视"
+    # email_to = "1364826576@qq.com"
+    send_status = send_mail(email_title, email_body, DEFAULT_FROM_EMAIL, [to_email])
+    return HttpResponse(request,'sucess')

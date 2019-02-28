@@ -71,7 +71,6 @@ class F_Admin(models.Model):
     # admin_login_log=models.ForeignKey('F_AdminLoginlog',on_delete=models.CASCADE)
     # admin_op_log=models.ForeignKey('F_Admin_Oplog',on_delete=models.CASCADE)
 
-
     def __str__(self):
         return self.name
 
@@ -86,7 +85,7 @@ class F_AdminLoginlog(models.Model):
     logintime=models.DateTimeField(_('登陆时间'),default=datetime.datetime.now)
 
     def __str__(self):
-        return self.login_id
+        return str(self.login_id)
 
     class Meta:
         verbose_name=_('管理员登陆日志')
@@ -157,4 +156,4 @@ class Role(models.Model):
 
 
     def __str__(self):
-        return self.name
+        return str(self.pk)

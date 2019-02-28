@@ -21,9 +21,9 @@ from app import views
 
 urlpatterns = [
     url('^index/$',views.index,name="index"),
-    url('^ad_index/$',views.ad_index,name="ad_index"),
-    url('^ad_login/$',views.ad_login,name="ad_login"),
-    url('^ad_logout/$',views.ad_logout,name="ad_logout"),
+    url('^admin_index/$',views.ad_index,name="ad_index"),
+    url('^admin_login/$',views.admin_login,name="ad_login"),
+    url('^admin_logout/$',views.admin_logout,name="ad_logout"),
     url('^user_list/$',views.user_list,name="user_list"),
     url('^user_view/(\d+)/$',views.user_view,name="user_view"),
     url('^user_login/$',views.user_login,name="user_login"),
@@ -50,6 +50,6 @@ urlpatterns = [
     url("^user_tree/$",views.user_tree,name="user_tree"),
     url("^imageswall/$",views.imageswall,name="imageswall"),
     url("^vediowall/$",views.vediowall,name="vediowall"),
-    url("^sendemail/$",views.sendemail,name="sendemail"),
+    url("^sendemail/(.*?)/(.*?)/$",views.sendemail,name="sendemail"),
       # path('^admin/', admin.site.urls),
 ]

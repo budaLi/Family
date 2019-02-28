@@ -156,7 +156,7 @@ EMAIL_HOST_PASSWORD = "btfixrcdeguejfja"
 EMIAL_USE_TLS = False
 #有这个就会显示是你的邮箱
 EMAIL_FROM ='1364826576@qq.com'
-
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 

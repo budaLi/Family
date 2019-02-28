@@ -123,7 +123,12 @@
                                     <td>{{ one.jiguan }}</td>
                                     <td>{{ one.register_time }}</td>
                                     <td>
-                                        <a class="label label-success">未注册</a>
+                                        {% if one.tag == '未注册' %}
+                                        <a class="label label-danger">未注册</a>
+
+                                    {% else %}
+                                        <a class="label label-success">已注册</a>
+                                        {% endif %}
                                     </td>
                                     <td>
                                         <a class="label label-success" href="/user_view/{{ one.id }}">查看</a>
@@ -133,7 +138,8 @@
                                         <a class="label label-warning">冻结</a>
                                         &nbsp;
                                         <a class="label label-danger">删除</a>
-
+                                            &nbsp;
+                                         <a href="/sendemail/{{ userinfo.email }}/{{ one.email }}" class="label label-primary">邀请注册</a>
                                     </td>
                                 </tr>
                                 {% endfor %}

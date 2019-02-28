@@ -7,7 +7,7 @@
             <h1>微电影管理系统</h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 角色管理</a></li>
-                <li class="active">添加角色</li>
+                <li class="active">编辑角色</li>
             </ol>
         </section>
         <section class="content" id="showcontent">
@@ -15,7 +15,7 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">添加角色</h3>
+                            <h3 class="box-title">编辑角色</h3>
                         </div>
                         <form role="form" method="POST">
                         {% csrf_token %}
@@ -25,22 +25,26 @@
                                     {{ rolename }}
 {#                                    <input type="text" class="form-control" id="input_name" placeholder="请输入角色名称！">#}
                                 </div>
+
                                 <div class="form-group" id="auth_list">
                                     <div class="col-md-12">
                                        <label>选择权限</label>
                                     </div>
                                     <div class="col-md-2">
                                         <label>
-                                            {{ auths }}
-{#                                  {% for one in auths %}#}
-{#                                <input type="checkbox"  name="input_url"> {{ one.name }}<br>#}
-{#                                {% endfor %}#}
+
+                                  {% for one in auths %}
+                                <input type="checkbox"  name="input_url" value="{{ one.url }}" checked="checked"> {{ one.name }}<br>
+                                {% endfor %}
+                                            {% for one in emptyauth %}
+                                <input value="{{ one.url }}" type="checkbox"  name="input_url"> {{ one.name }}<br>
+                                {% endfor %}
                                         </label>
                                     </div>
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <input type="submit" value="添加" class="btn btn-primary">
+                                <input type="submit" value="编辑" class="btn btn-primary">
                             </div>
                         </form>
                     </div>
