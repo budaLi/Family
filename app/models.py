@@ -17,7 +17,6 @@ class F_User(models.Model):
     jiguan=models.CharField(_('籍贯'),max_length=200)
     register_time=models.DateTimeField(_('注册时间'),default=datetime.datetime.now)
     info=models.TextField(_('个人介绍'))
-    tag=models.CharField(_('注册情况'),choices=(('0',_('已注册')), ('1',_('未注册'))),default=_('未注册'),max_length=20)
     state=models.CharField(_('用户状态'),choices=(('0',_('正常')), ('1',_('冻结'))),default=_('正常'),max_length=20)
 
     def __str__(self):
@@ -42,8 +41,12 @@ class F_UserRelation(models.Model):
     image=models.CharField(_('照片'),max_length=200,default="",null=True,blank=True)   #可以设置默认头像
     jiguan=models.CharField(_('籍贯'),max_length=200,null=True,blank=True)
     register_time=models.DateTimeField(_('注册时间'),default=datetime.datetime.now)
+    tag=models.CharField(_('注册情况'),choices=(('0',_('已注册')), ('1',_('未注册'))),default=_('未注册'),max_length=20)
+    state=models.CharField(_('用户状态'),choices=(('0',_('正常')), ('1',_('冻结'))),default=_('正常'),max_length=20)
+    is_yaoqin=models.CharField(_('是否邀请注册'),choices=(('0',_('已邀请')), ('1',_('未邀请'))),default=_('未邀请'),max_length=20)
     story=models.TextField(_('事件'),null=True,blank=True)
     info=models.TextField(_('个人介绍'),null=True,blank=True)
+
 
     def __str__(self):
         return self.relation

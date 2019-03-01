@@ -20,7 +20,7 @@ from app import views
 
 
 urlpatterns = [
-    url('^index/$',views.index,name="index"),
+    url('^index/(\d+)/$',views.index,name="index"),
     url('^admin_index/$',views.ad_index,name="ad_index"),
     url('^admin_login/$',views.admin_login,name="ad_login"),
     url('^admin_logout/$',views.admin_logout,name="ad_logout"),
@@ -28,7 +28,7 @@ urlpatterns = [
     url('^user_view/(\d+)/$',views.user_view,name="user_view"),
     url('^user_login/$',views.user_login,name="user_login"),
     url('^user_register/$',views.user_register,name="user_register"),
-    url("^relation/$",views.relation,name="relation"),
+    url("^relation/(\d+)$",views.relation,name="relation"),
     url("^tree/$",views.tree,name="tree"),
     url("^editperson/$",views.editperson,name="editperson"),
     url("^oplog_list/$",views.oplog_list,name="oplog_list"),
@@ -51,5 +51,9 @@ urlpatterns = [
     url("^imageswall/$",views.imageswall,name="imageswall"),
     url("^vediowall/$",views.vediowall,name="vediowall"),
     url("^sendemail/(.*?)/(.*?)/$",views.sendemail,name="sendemail"),
+    url("^freeze_or_unfreeze_user/(.*?)/$",views.freeze_or_unfreeze_user,name="freeze_or_unfreeze_user"),
+    url("^freeze_or_unfreeze_users/(.*?)/$",views.freeze_or_unfreeze_users,name="freeze_or_unfreeze_users"),
+    url("^del_user/(.*?)/$",views.del_user,name="del_user"),
+    url("^write/$",views.write,name="write"),
       # path('^admin/', admin.site.urls),
 ]

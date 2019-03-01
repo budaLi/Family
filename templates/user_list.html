@@ -43,6 +43,7 @@
                                     <th>头像</th>
                                     <th>籍贯</th>
                                     <th>注册时间</th>
+                                    <th>状态</th>
                                     <th>操作事项</th>
                                 </tr>
                                 {% for one in userlist %}
@@ -59,17 +60,21 @@
                                         {% if one.image %}
                                         <img src="{{ one.image }}" class="img-responsive center-block" alt="">
                                         {% else %}
-                                            <img src="#" class="img-responsive center-block" alt="">
+                                            <img data-src="holder.js/50x50" src="{{ one.image }}" class="img-responsive center-block" alt="">
                                         {% endif %}
                                     </td>
                                     <td>{{ one.jiguan }}</td>
                                     <td>{{ one.register_time }}</td>
+                                {% if one.state == '冻结' %}
+                                    <td><a  class="label label-warning">{{ one.state }}</a></td>
+                                {% else %}
+                                    <td><a  class="label label-success">{{ one.state }}</a></td>
+                                {% endif %}
                                     <td>
                                         <a class="label label-success" href="/user_view/{{ one.id }}">查看</a>
                                         &nbsp;
-                                        <a class="label label-info">解冻</a>
-                                        &nbsp;
-                                        <a class="label label-warning">冻结</a>
+                                        <a href="/freeze_or_unfreeze_user/{{ one.id }}" class="label label-info">解冻/冻结</a>
+
                                         &nbsp;
                                         <a class="label label-danger">删除</a>
                                     </td>

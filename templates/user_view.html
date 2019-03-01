@@ -4,7 +4,7 @@
     <div class="content-wrapper">
         <!--内容-->
         <section class="content-header">
-            <p><h2>xxxx个人信息</h2><a href="/tree/" class="label label-danger">族谱树</a></p>
+            <p><h2><a>{{ userinfo.name }}  </a> 的个人信息</h2><a href="/tree/" class="label label-danger">族谱树</a></p>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 会员管理</a></li>
                 <li class="active">查看会员</li>
@@ -40,7 +40,7 @@
                                 <tr>
                                     <td class="td_bd">头像：</td>
                                     <td>
-                                        <img data-src="holder.js/100x100" class="img-responsive" alt="">
+                                        <img style="text-align: center" src="#" data-src="holder.js/50x50" class="img-responsive" alt="">
                                     </td>
                                 </tr>
                                 <tr>
@@ -69,7 +69,7 @@
             </div>
         </section>
 
-<iframe   src="/index/" width="55%" height="50%"   frameborder="1/1"  style="position: absolute;left: 900px;top: 100px" name="iframe名称"     scrolling="auto">
+<iframe   src="/index/{{ userinfo.id }}" width="55%" height="50%"   frameborder="1/1"  style="position: absolute;left: 900px;top: 100px" name="iframe名称"     scrolling="auto">
 </iframe>
          <section class="content" id="showcontent">
             <div class="row">
@@ -103,13 +103,14 @@
                                     <th>邮箱</th>
                                     <th>头像</th>
                                     <th>籍贯</th>
-                                    <th>注册时间</th>
+{#                                    <th>注册时间</th>#}
                                     <th>注册状态</th>
+                                    <th>账户状态</th>
                                     <th>操作事项</th>
                                 </tr>
                                 {% for one in other_lis %}
                                 <tr>
-                                    <td>{{ one.id }}</td>
+                                    <td>{{ one.pk }}</td>
                                     <td>{{ one.name }}</td>
                                     <td>{{ one.nickname }}</td>
                                     <td>{{ one.xingshi}}</td>
@@ -118,10 +119,10 @@
                                     <td>{{ one.phone }}</td>
                                     <td>{{ one.email }}</td>
                                     <td>
-                                        <img src="{{ one.image }}" class="img-responsive center-block" alt="">
+                                        <img data-src="holder.js/50x50" src="{{ one.image }}" class="img-responsive center-block" alt="">
                                     </td>
                                     <td>{{ one.jiguan }}</td>
-                                    <td>{{ one.register_time }}</td>
+{#                                    <td>{{ one.register_time }}</td>#}
                                     <td>
                                         {% if one.tag == '未注册' %}
                                         <a class="label label-danger">未注册</a>
@@ -130,16 +131,28 @@
                                         <a class="label label-success">已注册</a>
                                         {% endif %}
                                     </td>
+                                    {% if one.state == '冻结' %}
+                                    <td><a  class="label label-warning">{{ one.state }}</a></td>
+                                {% else %}
+                                    <td><a  class="label label-success">{{ one.state }}</a></td>
+                                {% endif %}
                                     <td>
+                                    {% if one.tag == '已注册' %}
                                         <a class="label label-success" href="/user_view/{{ one.id }}">查看</a>
+                                    {% endif %}
                                         &nbsp;
-                                        <a class="label label-info">解冻</a>
+                                    <a href="/freeze_or_unfreeze_users/{{ one.id }}" class="label label-info">解冻/冻结</a>
                                         &nbsp;
-                                        <a class="label label-warning">冻结</a>
-                                        &nbsp;
-                                        <a class="label label-danger">删除</a>
-                                            &nbsp;
+
+
+                                        {% if one.is_yaoqin == '未邀请' %}
                                          <a href="/sendemail/{{ userinfo.email }}/{{ one.email }}" class="label label-primary">邀请注册</a>
+                                        {% else %}
+                                        <a class="label label-success">已邀请</a>
+                                        {% endif %}
+                                     &nbsp;
+                                                                            <a href="/del_user/{{ one.id }}" class="label label-danger">删除</a>
+
                                     </td>
                                 </tr>
                                 {% endfor %}

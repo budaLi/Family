@@ -5,9 +5,9 @@ from django.forms import ModelForm
 from django.forms import widgets as wid
 from functools import wraps
 from django.core.mail import send_mail,send_mass_mail
+import json
 
-
-sessin={'admin':'admin'}
+sessin={}
 #登陆装饰器
 def admin_login_req(f):
     @wraps(f)
@@ -85,9 +85,9 @@ def user_view(request,id):
     userinfo=F_User.objects.filter(pk=id).first()
     relation_user=F_UserRelation.objects.filter(user_id=id).all()
     other_lis=[]
+
     for one_user in relation_user:
-        other_lis.append(F_User.objects.filter(pk=one_user.user_id_id).first())
-    print(other_lis)
+        other_lis.append(F_UserRelation.objects.filter(user_id=one_user.user_id).first())
     return render(request,'user_view.html',{'userinfo':userinfo,'other_lis':other_lis})
 
 
@@ -124,13 +124,14 @@ def user_register(request):
             return render(request, "admin_login.html", {'userform':userform})
 
 # 关系图
-def index(request):
-    return render(request, "relationforce.html")
+def index(request,id):
+    return render(request, "relationforce.html",{'id':id})
+
 
 #此处应该是传入登陆者id 获取其家谱
-def relation(request):
-    user=F_User.objects.filter(pk=1).first()
-    rela=F_UserRelation.objects.filter(user_id_id=1).all()
+def relation(request,id):
+    user=F_User.objects.filter(pk=id).first()
+    rela=F_UserRelation.objects.filter(user_id_id=id).all()
     dic={}
     if user and rela:
         node=[{ "name": user.name, "image" : user.image }]
@@ -388,9 +389,50 @@ def vediowall(request):
 # 邮箱发送功能
 def sendemail(request,from_email,to_email):
     from Family.settings import DEFAULT_FROM_EMAIL
-    # to_email="1364826576@qq.com"
     email_title = "您的家人 %s 邀请注册"%(from_email)
     email_body = "请点击 http://127.0.0.1:8000/register/  注册  如果认为被骚扰请无视"
-    # email_to = "1364826576@qq.com"
     send_status = send_mail(email_title, email_body, DEFAULT_FROM_EMAIL, [to_email])
-    return HttpResponse(request,'sucess')
+    user=F_UserRelation.objects.filter(email=to_email).first()
+    if user:
+        user.is_yaoqin='已邀请'
+        user.save()
+    return redirect('/user_view/'+str(user.user_id.id))
+
+
+# 冻结/解冻 用户  返回user_list
+def freeze_or_unfreeze_user(request,id):
+    user=F_User.objects.filter(pk=id).first()
+    if user.state=='正常':
+        user.state='冻结'
+    else:
+        user.state='正常'
+    user.save()
+    print(user.state)
+    return redirect('user_list')
+
+# 冻结/解冻可能存在的用户  返回user_view
+def freeze_or_unfreeze_users(request,id):
+    user=F_UserRelation.objects.filter(pk=id).first()
+    if user.state=='正常':
+        user.state='冻结'
+    else:
+        user.state='正常'
+    user.save()
+    return redirect('/user_view/'+str(user.user_id.id))
+
+
+# 删除关联用户  未注册状态下
+def del_user(request,id):
+    user=F_UserRelation.objects.filter(pk=id).first()
+    tem=user.user_id.id
+    user.delete()
+    return redirect('/user_view/'+str(tem))
+
+
+def write(request):
+    data=json.loads(request.body)
+    print(data)
+    res={
+        'success':True
+    }
+    return HttpResponse(json.dumps(res),content_type='application/json')
