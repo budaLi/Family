@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)http://demo.cssmoban.com/cssthemes4/tpez_9_bcv/login.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Standard Meta -->
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport">
+
+    <!-- Site Properities -->
+    <meta name="generator" content="Visual Studio 2015">
+    <title>Admin Template</title>
+    <meta name="description" content="Admin Template">
+    <meta name="keywords" content="html5, ,semantic,ui, library, framework, javascript,jquery,template,blog,stagb,template">
+    <link href="/static/base/css/semantic.min.css" rel="stylesheet">
+    <link href="/static/base/css/main.css" rel="stylesheet">
+<style id="tsbrowser_video_independent_player_style" type="text/css">                                                            [tsbrowser_force_max_size] {                                                   width: 100% !important;                                                      height: 100% !important;                                                     left: 0px !important;                                                        top: 0px !important;                                                         margin: 0px !important;                                                      padding: 0px !important;                                                   }                                                                            [tsbrowser_force_fixed] {                                                      position: fixed !important;                                                  z-index: 9999 !important;                                                    background: black !important;                                              }                                                                            [tsbrowser_force_hidden] {                                                     opacity: 0 !important;                                                       z-index: 0 !important;                                                     }                                                                            [tsbrowser_hide_scrollbar] {                                                   overflow: hidden !important;                                               }</style></head>
+<body style="background-color: rgb(50, 147, 111);">
+    <div class="ui container" style="padding-top:10%">
+        <div class="ui grid center aligned">
+            <div class="row">
+                <div class="sixteen wide tablet six wide computer column">
+                    <div class="ui left aligned segment">
+
+                        <div id="form1" class="ui form">
+
+                            <h1 class="ui header center aligned">
+                                <img src="/static/images/logo.png" alt="stagblogo" class="ui small image">
+
+                                <div class="content">
+
+                                </div>
+                            </h1>
+<form method="POST">
+    {% csrf_token %}
+                            <div class="field">
+                                <label>
+                                    Email or Username:
+                                </label>
+                                <div class="ui fluid icon input">
+                                    <input name="user_name" id="u_name" type="email" autocomplete="off" style="width:100%!important;min-width:100%;width:100%;">
+                                    <i class="icon mail outline"></i>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label>
+                                    Password:
+                                </label>
+                                <div class="ui fluid icon input">
+                                    <input name="password" id="u_pass" type="password" autocomplete="off" style="width:100%!important;min-width:100%;width:100%;">
+                                    <i class="icon key"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+
+                                <input type="submit" class="ui teal right labeled icon button fluid" href="#">
+
+{#                                    <i class="icon sign in"></i>#}
+
+
+                                <input type="submit" class="ui blue right labeled icon button fluid" href="#">
+{#                                    <i class="icon spy"></i>#}
+
+
+                                </input>
+                            </div>
+    </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./user_loin_files/jquery-2.1.4.min.js.下载"></script>
+
+    <script>
+        var colors = ["#F25F5C", "#247BA0", "#8e44ad", "#ED6A5A", "#32936F", "#2c3e50", "#E83F6F", "#32936F", "#2E294E"];
+        var rand = Math.floor(Math.random() * colors.length);
+        $('body').css("background-color", colors[rand]);
+    </script>
+
+
+</body></html>

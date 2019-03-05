@@ -298,7 +298,20 @@
 {##}
 
 <script>
+        function PostData(data){
+        $.ajax({
 
+            type: 'post',  // 请求类型
+            async: true,  // 请求是否异步处理
+            url: '/save/',  // 请求
+            dataType: 'json',  // 服务器相应的数据类型
+            data:{
+                'data':data
+            },
+            // 请求成功时运行的函数
+            success: function(data, status) {
+
+    }})}
 
 	function Node(id){
 		this.together = false ;
@@ -451,6 +464,7 @@
 			else
 				NodeList[NowId].dead = true ;
 			Paint();
+            PostData(NodeList);
 		}
 	});
 
@@ -460,6 +474,7 @@
 				NodeList[NowId].together = false ;
 			else
 				NodeList[NowId].together = true ;
+
 			Paint();
 		}
 	});
@@ -491,6 +506,7 @@
 
 	$('#insertchild_back').click(function (e) {
 		InsertChildBack();
+
 	});
 
 	$('#insertchild_front').click(function (e) {
@@ -533,6 +549,9 @@
 			if ( NodeList[NowId].couple !== null ){
 				alert("重婚") ;
 			} else {
+
+
+
 				var coupleNode = new Node(NodeList.length) ;
 				coupleNode.sex = ( 1 - NodeList[NowId].sex ) ;
 				coupleNode.couple = NodeList[NowId] ;
@@ -1140,10 +1159,36 @@ $(function(){
                 $('.demo6').hDialog('close',{box:'#HBox'});
 			},2000);
 		}
+
 	});
 
+        // 创建一个点击事件,去执行函数
+    $('#save').click(function(){
+        // 函数是创建异步ajax请求
+        console.log(NodeList);
+{#        for(var i=0;i<NodeList.length;i++)#}
+{#        {#}
+{#        $.ajax({#}
+{##}
+{#            type: 'post',  // 请求类型#}
+{#            async: true,  // 请求是否异步处理#}
+{#            url: '/save/',  // 请求#}
+{#            dataType: 'json',  // 服务器相应的数据类型#}
+{#            data:{#}
+{#                'data':NodeList[i]#}
+{#            },#}
+{#            // 请求成功时运行的函数#}
+{#            success: function(data, status) {#}
+{#                console.log(data);#}
+{#            }})#}
+{#        }#}
+    }
+    );
+
+
+
 {#	$('body').append('<footer style="width:100%;background-color:#eeeeee;border-top:1px solid #ccc;padding:12px 0;text-align:center;color:#999;">&copy;2014 <a target="_blank" href="http://smwell.sinaapp.com/">haibao</a>, All Rights Reserved.</footer>');#}
-});
+})
 </script>
 {% block js %}
 {% endblock %}

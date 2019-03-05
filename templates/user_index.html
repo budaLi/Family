@@ -14,6 +14,17 @@
     <link rel="stylesheet" href="/static/base/css/animate.css">
     <link rel="stylesheet" type="text/css" href="/static/admin/plugins/datepicker/datepicker3.css">
      <link rel="stylesheet" type="text/css" href="/static/base/css/style.css"/>
+{#    <link href="/static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">#}
+    <!-- chartist CSS -->
+    <link href="/static/assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
+    <link href="/static/assets/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
+    <link href="/static/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+    <!--This page css - Morris CSS -->
+    <link href="/static/assets/plugins/c3-master/c3.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/static/assets/css/style.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="/static/assets/css/colors/blue.css" id="theme" rel="stylesheet">
     <style>
         *{
             font-family:"Microsoft YaHei";
@@ -118,12 +129,12 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="/userview/">
+                            <a href="/user_index/{{ id }}">
                                 <i class="fa fa-circle-o"></i> 详细信息
                             </a>
                         </li>
                         <li>
-                            <a href="/user_relations/">
+                            <a href="/user_relations/{{ id }}">
                                 <i class="fa fa-circle-o"></i> 关系图
                             </a>
                         </li>
@@ -226,10 +237,10 @@
         <!--内容-->
      <div class="content-wrapper">
         <section class="content-header">
-            <h1>家庭成员关系图绘制系统</h1>
+            <h1>个人信息</h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> 会员管理</a></li>
-                <li class="active">会员列表</li>
+                <li><a href="#"><i class="fa fa-dashboard"></i> 个人信息</a></li>
+                <li class="active">个人信息</li>
             </ol>
         </section>
         <section class="content" id="showcontent">
@@ -265,7 +276,7 @@
                                     <th>头像</th>
                                     <th>籍贯</th>
                                     <th>注册时间</th>
-                                    <th>操作事项</th>
+{#                                    <th>操作事项</th>#}
                                 </tr>
                                 {% for one in userlist %}
                                 <tr>
@@ -286,16 +297,16 @@
                                     </td>
                                     <td>{{ one.jiguan }}</td>
                                     <td>{{ one.register_time }}</td>
-                                    <td>
-                                        <a class="label label-success" href="/user_view/{{ one.id }}">查看</a>
-                                        &nbsp;
-                                        <a class="label label-info">解冻</a>
-                                        &nbsp;
-                                        <a class="label label-warning">冻结</a>
-                                        &nbsp;
-                                        <a class="label label-danger">删除</a>
-                                    </td>
-                                </tr>
+{#                                    <td>#}
+{#                                        <a class="label label-success" href="/user_view/{{ one.id }}">查看</a>#}
+{#                                        &nbsp;#}
+{#                                        <a class="label label-info">解冻</a>#}
+{#                                        &nbsp;#}
+{#                                        <a class="label label-warning">冻结</a>#}
+{#                                        &nbsp;#}
+{#                                        <a class="label label-danger">删除</a>#}
+{#                                    </td>#}
+{#                                </tr>#}
                                 {% endfor %}
                                 </tbody>
                             </table>

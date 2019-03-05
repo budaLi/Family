@@ -102,7 +102,21 @@ class UserLoginForm(ModelForm):
 
 #用户登陆
 def user_login(request):
-    return render(request,'')
+    if request.method=='GET':
+        return render(request,'user_loin.html')
+    if request.method=='POST':
+        user=F_User.objects.filter(email=request.POST['user_name']).first()
+        if user and user.pwd==request.POST['password']:
+            return redirect('/user_index/'+str(user.id))
+        return render(request,'user_loin.html')
+
+
+#用户家庭信息
+def user_index(request,id):
+    userlist=F_User.objects.filter(pk=id).all()
+    return render(request, 'user_index.html',{'userlist':userlist,'id':id})
+
+
 
 # @admin_auth
 # @admin_login_req
@@ -364,14 +378,12 @@ def editperson(request):
             personform=UserRelaForm()
             return render(request,'tree.html',{'personform':personform,'errors':personform.errors})
 
-# 用户信息首页
-def user_index(request):
-    return render(request,'user_index.html')
+
 
 
 # 会员关系图
-def user_relations(request):
-    return render(request,'user_relations.html')
+def user_relations(request,id):
+    return render(request,'user_relations.html',{'id':id})
 
 
 # 用户族谱
@@ -430,9 +442,24 @@ def del_user(request,id):
 
 
 def write(request):
+    print(request.body)
     data=json.loads(request.body)
-    print(data)
     res={
         'success':True
     }
     return HttpResponse(json.dumps(res),content_type='application/json')
+
+
+def save(request):
+    data=request.POST
+    print(type(data))
+    for key,value in data.items():
+        print(key,'value:'+value)
+    res={
+        'success':True
+    }
+    return HttpResponse(json.dumps(res),content_type='application/json')
+
+
+def articlelist(request):
+    return render(request,'user_loin.html')
